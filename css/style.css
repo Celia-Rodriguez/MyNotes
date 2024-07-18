@@ -1,0 +1,49 @@
+/********************  GENERAL *******************/
+@font-face {
+    font-family: "Contton-tail";
+    src: url("../src/fonts/Cottontail_Free.otf");
+}
+:root{
+   --background: #ffffff;
+   --text: #012030;
+   --decoration: #13678A;
+   --details: #45C4B0;
+   --brightcolor: #DAFDBA;
+
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: var(--background);
+    min-height: 100vh;
+}
+/********************  SIDEBAR *******************/
+.sidebar{
+    width: 100px;
+    height: 100%;
+    top: 0;
+    background-color: var(--brightcolor);
+    border-right: var(--decoration) 1px solid;
+    padding: 25px 20px;
+    overflow-x: hidden;
+    transition:  all 0.4s ease;
+}
+.sidebar:hover{
+    width: 250px;
+}
+.sidebar .side-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 20px 20px 20px;
+}
+.side-header .icon-user{
+   height: 40px;
+}
+.side-foot h2{
+    font-family: "Contton-tail";
+    font-size: 30px;
+    font-weight: 200;
+}
