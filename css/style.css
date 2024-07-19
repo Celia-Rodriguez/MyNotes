@@ -1,8 +1,17 @@
-/********************  GENERAL *******************/
+/******************** GENERAL *******************/
 @font-face {
     font-family: "Contton-tail";
     src: url("../src/fonts/Cottontail_Free.otf");
 }
+@font-face {
+    font-family: "Fresh-salmon";
+    src: url("../src/fonts/Fresh_Salmon.otf");
+}
+@font-face {
+    font-family: "Vanilla-cake";
+    src: url("../src/fonts/Vanilla_Cake_Free.otf");
+}
+
 :root{
    --background: #ffffff;
    --text: #012030;
@@ -18,21 +27,26 @@
 }
 body{
     background-color: var(--background);
+    max-width: 1920px;
     min-height: 100vh;
+    display: grid;
+    grid-template-columns: 100px 3fr;
+    grid-template-rows: 1fr auto;
+
 }
-/********************  SIDEBAR *******************/
+/******************** SIDEBAR *******************/
 .sidebar{
     width: 100px;
-    height: 100%;
+    max-height: 100vh;
     top: 0;
-    background-color: var(--brightcolor);
+    /* background-color: var(--brightcolor); */
     border-right: var(--decoration) 1px solid;
-    padding: 25px 20px;
+    padding: 25px 20px 20px 0px;
     overflow-x: hidden;
     transition:  all 0.4s ease;
 }
 .sidebar:hover{
-    width: 250px;
+    width: 300px;
 }
 .sidebar .side-header{
     display: flex;
@@ -43,7 +57,76 @@ body{
    height: 40px;
 }
 .side-foot h2{
-    font-family: "Contton-tail";
+    font-family: "Vanilla-cake";
     font-size: 30px;
     font-weight: 200;
+    white-space: nowrap;
+}
+/******************** NAV MENU *******************/
+.sidebar .nav-menu{
+    font-size: 1.25rem;
+    margin-top: 50px;
+}
+.sidebar .nav-menu ul{
+    list-style: none;
+    font-family: "Contton-tail";
+}
+.sidebar .nav-menu li{
+    margin: 10px 10px 10px 0px;
+    white-space: nowrap;
+    padding: 10px 10px 10px 0px;
+    /* transform: translateY(-50%);
+    transform: scaleX(1);
+    transition: 0.2s;
+    transform-origin: right; */
+    /*hover
+    transform: scaleX(0);
+    transition-delay: 0s;*/
+}
+.sidebar .nav-menu li:hover{
+    background-color: var(--brightcolor);
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.sidebar .nav-menu li:hover a{
+    color: var(--decoration);
+}
+.sidebar .nav-menu a{
+    padding-left: 20px;
+    text-decoration: none;
+    color: var(--text);
+}
+.sidebar .nav-menu li i{
+    padding-left: 20px;
+    color: var(--decoration);
+}
+/******************** MAIN *******************/
+main{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+main .add-notes{
+    margin-top: 100px;
+}
+main .add-notes .add-notes-input{
+    width: 350px;
+    padding: 5px;
+    border-radius: 30px;
+
+}
+/******************** FOOTER *******************/
+footer{
+    height: 50px;
+    grid-area: 2/1/2/3;
+    background-color: var(--decoration);
+    color: var(--brightcolor);
+    text-align: center;
+    padding: 20px;
+    font-family: "Vanilla-cake";
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+footer a{
+    color: var(--background);
 }
