@@ -11,14 +11,12 @@
     font-family: "Vanilla-cake";
     src: url("../src/fonts/Vanilla_Cake_Free.otf");
 }
-
 :root{
    --background: #ffffff;
    --text: #012030;
    --decoration: #13678A;
    --details: #45C4B0;
    --brightcolor: #DAFDBA;
-
 }
 *{
     box-sizing: border-box;
@@ -30,15 +28,13 @@ body{
     max-width: 1920px;
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 100px 3fr;
+    grid-template-columns: auto 3fr;
     grid-template-rows: 1fr auto;
-
 }
 /******************** SIDEBAR *******************/
 .sidebar{
     width: 100px;
     max-height: 100vh;
-    top: 0;
     /* background-color: var(--brightcolor); */
     border-right: var(--decoration) 1px solid;
     padding: 25px 20px 20px 0px;
@@ -52,15 +48,19 @@ body{
     display: flex;
     justify-content: space-between;
     padding: 50px 20px 20px 20px;
+    height: 120px;
 }
-.side-header .icon-user{
-   height: 40px;
-}
-.side-foot h2{
+.sidebar .side-header h2{
+    cursor: default;
     font-family: "Vanilla-cake";
-    font-size: 30px;
+    font-size: 18px;
     font-weight: 200;
     white-space: nowrap;
+    color: var(--details);
+    transition:  all 0.2s ease;
+}
+.sidebar:hover h2{
+    font-size: 30px;
 }
 /******************** NAV MENU *******************/
 .sidebar .nav-menu{
@@ -75,13 +75,6 @@ body{
     margin: 10px 10px 10px 0px;
     white-space: nowrap;
     padding: 10px 10px 10px 0px;
-    /* transform: translateY(-50%);
-    transform: scaleX(1);
-    transition: 0.2s;
-    transform-origin: right; */
-    /*hover
-    transform: scaleX(0);
-    transition-delay: 0s;*/
 }
 .sidebar .nav-menu li:hover{
     background-color: var(--brightcolor);
@@ -95,25 +88,70 @@ body{
     padding-left: 20px;
     text-decoration: none;
     color: var(--text);
+    opacity: 0;
+}
+.sidebar:hover a{
+    opacity: 1;
 }
 .sidebar .nav-menu li i{
-    padding-left: 20px;
+    padding-left: 30px;
     color: var(--decoration);
 }
 /******************** MAIN *******************/
 main{
     width: 100%;
     display: flex;
-    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+main .user{
+    display: flex;
+    justify-content: flex-end;
+    padding: 30px;
+}
+main .user .icon-user{
+    height: 50px;
 }
 main .add-notes{
-    margin-top: 100px;
+    display: flex;
+    justify-content: center;
 }
 main .add-notes .add-notes-input{
     width: 350px;
-    padding: 5px;
-    border-radius: 30px;
+    padding: 8px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border: var(--decoration) 1px solid;
+    box-shadow: 0 0 5px rgba(69, 196, 176, 0.6);
+    transition:  all 0.2s ease;
+}
+main .add-notes .add-notes-input:focus{
+    outline: none;
+    border: var(--details) 1px solid;
+    padding: 15px;
+}
+main .add-notes .add-notes-btn{
+    font-size: 1.2rem;
+    padding: 8px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border: var(--decoration) 1px solid;
+    box-shadow: 0 0 5px rgba(69, 196, 176, 0.6);
+}
+main .notes{
+    padding: 50px 10px 10px 10px;
 
+}
+main .notes .card-note{
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+main .notes .card-note p{
+    width: 100%;
+    height: auto;
+    display: block;
 }
 /******************** FOOTER *******************/
 footer{
