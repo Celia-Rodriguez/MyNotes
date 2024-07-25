@@ -4,12 +4,12 @@
     src: url("../src/fonts/Cottontail_Free.otf");
 }
 @font-face {
-    font-family: "Fresh-salmon";
-    src: url("../src/fonts/Fresh_Salmon.otf");
-}
-@font-face {
     font-family: "Vanilla-cake";
     src: url("../src/fonts/Vanilla_Cake_Free.otf");
+}
+@font-face {
+    font-family: "Poppins-Regular";
+    src: url("../src/fonts/Poppins-Regular.ttf");
 }
 :root{
    --background: #ffffff;
@@ -30,6 +30,7 @@ body{
     display: grid;
     grid-template-columns: auto 3fr;
     grid-template-rows: 1fr auto;   
+    font-family: 'Poppins-Regular';
 }
 .img-background{
     position: fixed;
@@ -50,7 +51,7 @@ body{
     padding: 25px 20px 20px 0px;
     overflow-x: hidden;
     transition:  all 0.4s ease;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(5px);
 }
 .sidebar .sidebar-container{
@@ -157,36 +158,52 @@ main .add-notes .add-notes-btn{
     border-bottom-right-radius: 30px;
     border: var(--decoration) 1px solid;
     box-shadow: 0 0 5px rgba(69, 196, 176, 0.6);
+    background-color: var(--decoration);
+    color: var(--brightcolor);
+}
+main .add-notes .add-notes-btn:hover{
+    background-color: var(--brightcolor);
+    color: var(--decoration);
 }
 main .notes{
     display: grid;
-    grid-template-columns: repeat(4, 350px);
+    grid-template-columns: repeat(5, 240px);
     grid-template-rows: auto auto;
     padding: 50px 10px 10px 10px;
     place-content: center;
-    row-gap: 20px;
+    gap: 20px;
 }
 .sidebar:hover + .notes{
     margin-left: -10x; 
 }
 main .notes .card-note{
-    width: 330px;
+    cursor: default;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: rgba(69, 196, 176, 0.3) 1px solid;
+    box-shadow: 0 4px 8px rgba(69, 196, 176, 0.3);
     page-break-inside: avoid;
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
 }
+main .notes .card-note:hover{
+    border: rgba(19, 103, 138,0.7) 1px solid;
+    box-shadow: 0 4px 8px rgba(69, 196, 176, 0.3);
+}
 main .notes .card-note .title-note{
-    background-color: var(--background);
+    font-size: 0.9rem;
     padding: 10px;
-    border-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 main .notes .card-note p{
     padding: 15px;
     width: 100%;
     height: auto;
     display: block;
+    font-size: 0.8rem;
 }
 /******************** FOOTER *******************/
 footer{
