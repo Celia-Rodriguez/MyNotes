@@ -29,17 +29,33 @@ body{
     min-height: 100vh;
     display: grid;
     grid-template-columns: auto 3fr;
-    grid-template-rows: 1fr auto;
+    grid-template-rows: 1fr auto;   
+}
+.img-background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Para estar detrás de todo el contenido */
+    object-fit: cover;
+    opacity: 0.9; /* Ajusta la opacidad si es necesario */
 }
 /******************** SIDEBAR *******************/
 .sidebar{
     width: 100px;
-    max-height: 100vh;
+    min-height: 100vh;
     /* background-color: var(--brightcolor); */
     border-right: var(--decoration) 1px solid;
     padding: 25px 20px 20px 0px;
     overflow-x: hidden;
     transition:  all 0.4s ease;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+}
+.sidebar .sidebar-container{
+    position: sticky;
+    top: 0;
 }
 .sidebar:hover{
     width: 300px;
@@ -56,7 +72,7 @@ body{
     font-size: 18px;
     font-weight: 200;
     white-space: nowrap;
-    color: var(--details);
+    color: var(--text);
     transition:  all 0.2s ease;
 }
 .sidebar:hover h2{
@@ -103,14 +119,18 @@ main{
     display: flex;
     align-content: center;
     flex-direction: column;
+    margin-left: 0;
+    transition: margin-left 0.4s ease;
 }
 main .user{
     display: flex;
     justify-content: flex-end;
     padding: 30px;
+    cursor: pointer;
 }
 main .user .icon-user{
     height: 50px;
+    margin-right: 50px;
 }
 main .add-notes{
     display: flex;
@@ -139,16 +159,31 @@ main .add-notes .add-notes-btn{
     box-shadow: 0 0 5px rgba(69, 196, 176, 0.6);
 }
 main .notes{
+    display: grid;
+    grid-template-columns: repeat(4, 350px);
+    grid-template-rows: auto auto;
     padding: 50px 10px 10px 10px;
-
+    place-content: center;
+    row-gap: 20px;
+}
+.sidebar:hover + .notes{
+    margin-left: -10x; 
 }
 main .notes .card-note{
-    padding: 10px;
+    width: 330px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
+    page-break-inside: avoid;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+main .notes .card-note .title-note{
+    background-color: var(--background);
+    padding: 10px;
+    border-radius: 8px;
 }
 main .notes .card-note p{
+    padding: 15px;
     width: 100%;
     height: auto;
     display: block;
