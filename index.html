@@ -6,8 +6,7 @@
     <title>MyNotes</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
 </head>
 <body>
     <aside class="sidebar">
@@ -29,50 +28,19 @@
         <div class="user">
             <img class="icon-user" src="src/img/iconUser.png" alt="icon user">
         </div>
-        <div class="add-notes">
-            <input class="add-notes-input" type="text" name="add_notes_text" id="addNotesText" placeholder="Add a note...">
-            <button class="add-notes-btn">+</button>
+        <div class="add-notes" id="add-notes">
+                <input class="add-notes-input" type="text" id="addNotesText" placeholder="Add a note...">
+            <button class="add-notes-btn" id="btnadd">+</button>
         </div>
-        <div class="notes">        
+        <div class="notes" id="card_container">
             <div class="card-note">
-                <h3 class="title-note">Compra <i class="fa fa-angle-down"></i></h3>
+                <h3 class="title-note">Tarjeta de ejemplo</h3>
                 <p class="text-note">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus nisl sit amet orci laoreet fringilla. Nunc convallis felis odio, at elementum risus dictum sit amet. Pellentesque euismod neque ac porta iaculis. Mauris egestas ex a ipsum dictum fermentum. Vestibulum hendrerit leo tempor libero iaculis ultrices. Nam scelerisque convallis vehicula.</p>
             </div>
-            <div class="card-note">
-                <h3 class="title-note">Enlaces por mirar</h3>
-                <p class="text-note">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus nisl sit amet orci laoreet fringilla. Nunc convallis felis odio, at elementum risus dictum sit amet. Pellentesque euismod neque ac porta iaculis. Mauris egestas ex a ipsum dictum fermentum. Vestibulum hendrerit leo tempor libero iaculis ultrices. Nam scelerisque convallis vehicula.</p>
-            </div>
-            <div class="card-note">
-                <h3 class="title-note">Lista de canciones para el viaje</h3>
-                <p class="text-note">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus nisl sit amet orci laoreet fringilla. Nunc convallis felis odio, at elementum risus dictum sit amet. Pellentesque euismod neque ac porta iaculis. Mauris egestas ex a ipsum dictum fermentum. Vestibulum hendrerit leo tempor libero iaculis ultrices. Nam scelerisque convallis vehicula.</p>
-            </div>
-            <div class="card-note">
-                <h3 class="title-note">Lorem kdkfnfoo sksopqledmdo mkdxpw,ow poamodnp</h3>
-                <p class="text-note">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus nisl sit amet orci laoreet fringilla. Nunc convallis felis odio, at elementum risus dictum sit amet. Pellentesque euismod neque ac porta iaculis. Mauris egestas ex a ipsum dictum fermentum. Vestibulum hendrerit leo tempor libero iaculis ultrices. Nam scelerisque convallis vehicula.</p>
-            </div>
-
-            <div class="card-note">
-                <h3 class="title-note">Lorem</h3>
-                <p class="text-note">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus nisl sit amet orci laoreet fringilla. Nunc convallis felis odio, at elementum risus dictum sit amet. Pellentesque euismod neque ac porta iaculis. Mauris egestas ex a ipsum dictum fermentum. Vestibulum hendrerit leo tempor libero iaculis ultrices. Nam scelerisque convallis vehicula.</p>
-            </div>
-            <div class="card-note">
-                <h3 class="title-note">Lorem</h3>
-                <p class="text-note">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus nisl sit amet orci laoreet fringilla. Nunc convallis felis odio, at elementum risus dictum sit amet. Pellentesque euismod neque ac porta iaculis. Mauris egestas ex a ipsum dictum fermentum. Vestibulum hendrerit leo tempor libero iaculis ultrices. Nam scelerisque convallis vehicula.</p>
-            </div>
-            <div class="card-note">
-                <h3 class="title-note">Lorem</h3>
-                <p class="text-note">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus nisl sit amet orci laoreet fringilla. Nunc convallis felis odio, at elementum risus dictum sit amet. Pellentesque euismod neque ac porta iaculis. Mauris egestas ex a ipsum dictum fermentum. Vestibulum hendrerit leo tempor libero iaculis ultrices. Nam scelerisque convallis vehicula.</p>
-            </div>
-            <div class="card-note">
-                <h3 class="title-note">Lorem</h3>
-                <p class="text-note">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus nisl sit amet orci laoreet fringilla. Nunc convallis felis odio, at elementum risus dictum sit amet. Pellentesque euismod neque ac porta iaculis. Mauris egestas ex a ipsum dictum fermentum. Vestibulum hendrerit leo tempor libero iaculis ultrices. Nam scelerisque convallis vehicula.</p>
-            </div>
-
         </div>
     </main>
     <footer>
         <p>developed by <a href="https://github.com/Celia-Rodriguez" target="_blank">Celia Rodriguez <i class="fa fa-github"></i></a></p>
     </footer>
-    
 </body>
 </html>
