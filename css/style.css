@@ -45,8 +45,8 @@ body{
 /******************** SIDEBAR *******************/
 .sidebar{
     width: 100px;
-    min-height: 100vh;
-    /* background-color: var(--brightcolor); */
+    /*min-height: 100vh;
+     background-color: var(--brightcolor); */
     border-right: var(--decoration) 1px solid;
     padding: 25px 20px 20px 0px;
     overflow-x: hidden;
@@ -181,12 +181,14 @@ main .notes{
 main .notes .card-note{
     cursor: default;
     height: fit-content;
-    border-radius: 8px;
+    padding: 15px;
+    border-radius: 10px;
     border: rgba(69, 196, 176, 0.3) 1px solid;
     box-shadow: 0 4px 8px rgba(69, 196, 176, 0.3);
     page-break-inside: avoid;
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
+    transition:  all 0.2s ease;
 }
 main .notes .card-note:hover{
     border: rgba(19, 103, 138,0.7) 1px solid;
@@ -194,19 +196,37 @@ main .notes .card-note:hover{
 }
 main .notes .card-note .title-note{
     font-size: 0.9rem;
-    padding: 10px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 15px;
 }
 main .notes .card-note p{
-    padding: 15px;
     width: 100%;
     height: auto;
     display: block;
     font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+main .notes .card-note .note-icons{
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+    opacity: 0; /* Inicialmente invisibles */
+    transition: opacity 0.5s ease; /* Transición suave */
+}
+main .notes .card-note:hover .note-icons {
+    opacity: 1; /* Aparecen */
+}
+main .notes .card-note .note-icons i{
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+}
+main .notes .card-note:hover .note-icons i {
+    visibility: inherit;
+    opacity: 1;
 }
 /******************** FOOTER *******************/
 footer{
