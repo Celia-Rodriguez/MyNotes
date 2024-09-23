@@ -47,8 +47,8 @@ btn_add.addEventListener("click", (ev)=>{
         title: valTitle,
         text: valText
     };
-    console.log(new_card);
-    console.log(content);
+    //console.log(new_card);
+    //console.log(content);
     content.push(new_card);
     localStorage.setItem('todolist', JSON.stringify(content))
 
