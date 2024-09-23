@@ -47,8 +47,22 @@ btn_add.addEventListener("click", (ev)=>{
     input_add.value="";
 });
 
-
 function createCard(valorInput){
+    var divIcons = document.createElement("div");
+    divIcons.setAttribute("class", "note-icons");
+
+    var edit= document.createElement("i");
+    edit.setAttribute("class", "fa fa-edit");
+
+    var trash= document.createElement("i");
+    trash.setAttribute("class", "fa fa-trash-o");
+
+    var archive= document.createElement("i");
+    archive.setAttribute("class", "fa fa-archive");
+    divIcons.appendChild(edit);
+    divIcons.appendChild(archive);
+    divIcons.appendChild(trash);
+
     var card=document.createElement("div");
     card.setAttribute("class", "card-note");
     var card_title = document.createElement("h3");
@@ -59,25 +73,7 @@ function createCard(valorInput){
     card_text.textContent = valorInput;
     card.appendChild(card_title);
     card.appendChild(card_text);
+    card.appendChild(divIcons);
     const container = document.getElementById('card_container');
     container.appendChild(card);
 }
-  /*input_add.addEventListener("click", (ev)=>{
-    ev.preventDefault();
-    var title= document.createElement('input');
-    title.setAttribute('type','text');
-    title.setAttribute('placeholder','Título...');
-    title.setAttribute('class','add-notes-input');
-
-    var text= document.createElement('input');
-    text.setAttribute('type','text');
-    text.setAttribute('placeholder','Añade una nota...');
-    text.setAttribute('class','add-notes-input');
-
-    const container = document.getElementById("container_inputs");
-    container.appendChild(title);
-    container.appendChild(text);
-
-    input_add.remove();  
-    
-});*/
