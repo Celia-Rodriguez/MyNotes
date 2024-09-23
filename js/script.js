@@ -1,5 +1,8 @@
+
 /*
 Crear, editar y borrar tarjetas de tareas
+    --> a la hora de crear las tarjetas de necesita un id idstintivo para luego poder moverlas o borrarlas.
+    --> se necesita un evento onclick en el icono de trash para poder borrarlas.
 poder ver el tiempo de hoy en la eregión del ordenador??
 clasificar las tareas por hacer en ello y hechas
 al situar el raton sobre la tarejta de la carta que aprecan las opciones de edicion y que se pueda interactuar con ellas (ref google keeps)
@@ -16,6 +19,7 @@ if(card_saved){
      content.forEach(element => {createCard(element.text)});
 }
 
+//Añadir cards
 const btn_add = document.getElementById("btnadd");
 btn_add.addEventListener("click", (ev)=>{
     ev.preventDefault();
@@ -27,7 +31,12 @@ btn_add.addEventListener("click", (ev)=>{
 
     //card no vacias gracias
     if (valText.trim() === "") {
-        console.warn('No se puede agregar una tarjeta vacía');
+        Swal.fire({
+            title: '¡Alerta!',
+            text: 'No se guardan las tarjetas vacías.',
+            icon: 'warning',
+            confirmButtonText: 'Ok'
+        });
         return;
     }
 
@@ -47,6 +56,7 @@ btn_add.addEventListener("click", (ev)=>{
     input_add.value="";
 });
 
+//funcion para crear las card
 function createCard(valorInput){
     var divIcons = document.createElement("div");
     divIcons.setAttribute("class", "note-icons");
@@ -56,9 +66,9 @@ function createCard(valorInput){
 
     var trash= document.createElement("i");
     trash.setAttribute("class", "fa fa-trash-o");
-
+    trash.setAttribute("onclick", "deleteCard()")
     var archive= document.createElement("i");
-    archive.setAttribute("class", "fa fa-archive");
+    archive.setAttribute("class", "fa fa-folder-o");
     divIcons.appendChild(edit);
     divIcons.appendChild(archive);
     divIcons.appendChild(trash);
@@ -76,4 +86,15 @@ function createCard(valorInput){
     card.appendChild(divIcons);
     const container = document.getElementById('card_container');
     container.appendChild(card);
+}
+
+//funcion para borrar las cards
+
+function deleteCard(){
+    Swal.fire({
+        title: 'En construcción',
+        text: 'Se que quieres borrar notas, pero aún no se puede',
+        icon: 'info',
+        confirmButtonText: 'Ok'
+    });
 }
