@@ -12,7 +12,7 @@ estilo de las notas editables?
 dos tipos de tarjetas notas y recordartorios esto tienen una hora y fecha editable.
 */
 //cargar si hay card guardadas
-const card_saved= localStorage.getItem('todolist');
+const card_saved= localStorage.getItem('trashNotes');
     content = new Array();
     note_id = new Array();
 if(card_saved){
@@ -20,50 +20,6 @@ if(card_saved){
      content.forEach(element => {createCard(element.text, element.id)});
      note_id =  content.map(element=> element.id);
 }
-
-//Añadir cards
-const btn_add = document.getElementById("btnadd");
-btn_add.addEventListener("click", (ev)=>{
-    ev.preventDefault();
-//añadir card a el html
-    const input_add = document.getElementById("addNotesText");
-
-    var valTitle ="Tarjeta Guardada en el Storage";
-    var valText= input_add.value;
-    var valId= generarIdUnico();
-    //console.log(valId);
-
-    while(note_id.includes(valId)){
-        valId = generarIdUnico();
-    }
-
-    //card no vacias gracias
-    if (valText.trim() === "") {
-        Swal.fire({
-            title: '¡Alerta!',
-            text: 'No se guardan las tarjetas vacías.',
-            icon: 'warning',
-            confirmButtonText: 'Ok'
-        });
-        return;
-    }
-
-    createCard(valText, valId);
-
-//guardar en el ssesionStorage
-    var new_card ={
-        title: valTitle,
-        text: valText,
-        id: valId
-    };
-    //console.log(new_card);
-    //console.log(content);
-    content.push(new_card);
-    localStorage.setItem('todolist', JSON.stringify(content))
-
-//deja como estaba el input add note
-    input_add.value="";
-});
 
 //funcion para crear las card
 function createCard(valorInput, valorId){
@@ -108,12 +64,11 @@ function createCard(valorInput, valorId){
 }
 
 //funcion para borrar las cards
-
 function deleteCard(element){
     console.log(element);
     Swal.fire({
         title: 'Eliminar nota',
-        text: 'Por el momento se mandará a la papelera, \n ¿De verdad quieres eliminar la nota?',
+        text: 'Se eliminará definitivamente, \n ¿De verdad quieres eliminar la nota?',
         icon: 'warning',
         showCancelButton: true, 
         confirmButtonColor: '#3085d6', 
@@ -127,30 +82,17 @@ function deleteCard(element){
             const cardNote = element.closest('.card-note');
             const idNote= cardNote.id;
             cardNote.remove();
+
             //eliminar del localStorage
-            console.log(idNote);
-            
-            let note_saved= JSON.parse(localStorage.getItem('todolist'));
-            let trashNotes =localStorage.getItem('trashNotes');
-            toTrash= new Array();
-            if(trashNotes){
-               toTrash= JSON.parse(trashNotes);
-                console.log(toTrash);
-            }
-          
-            const indexNota = note_saved.findIndex(card => card.id === idNote);
-            if(indexNota !== -1){
+            let trashNotes = JSON.parse(localStorage.getItem('trashNotes')) || [];
 
-                 const [deleteNote] = note_saved.splice(indexNota,1);
-                 toTrash.push(deleteNote);
+            trashNotes= trashNotes.filter(card=> card.id !== idNote);
 
-                 localStorage.setItem('todolist',JSON.stringify(note_saved));
-                 localStorage.setItem('trashNotes', JSON.stringify(toTrash));
-            }
+            localStorage.setItem('trashNotes',JSON.stringify(trashNotes));
 
             Swal.fire(
-                'Adios nota!!',
-                'La nota ha sido mandada a la papelera',
+                'Borrado para siempre!!',
+                'La nota ha sido eliminada para siempre',
                 'success'
             );
         }
