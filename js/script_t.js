@@ -19,6 +19,13 @@ if(card_saved){
      content=JSON.parse(card_saved);
      content.forEach(element => {createCard(element.text, element.id)});
      note_id =  content.map(element=> element.id);
+}else{
+    const container = document.getElementById('card_container');
+
+    var noCards = document.createElement("h3");
+    noCards.setAttribute("class", "title-note");
+    noCards.textContent ="La papelera está vacía";
+    container.appendChild(container.appendChild(noCards));
 }
 
 //funcion para crear las card
