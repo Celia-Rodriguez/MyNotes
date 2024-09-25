@@ -97,6 +97,14 @@ function deleteCard(element){
 
             localStorage.setItem('trashNotes',JSON.stringify(trashNotes));
 
+            if(trashNotes.length  === 0){
+                const container = document.getElementById('card_container');
+                var noCards = document.createElement("h3");
+                noCards.setAttribute("class", "title-note");
+                noCards.textContent ="La papelera está vacía";
+                container.appendChild(container.appendChild(noCards));
+            }
+
             Swal.fire(
                 'Borrado para siempre!!',
                 'La nota ha sido eliminada para siempre',
