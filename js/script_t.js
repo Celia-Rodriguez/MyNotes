@@ -1,16 +1,3 @@
-
-/*
- editar y restaurar las tarjetas borradas. Boton para vaciar la papelera
-    --> a la hora de crear las tarjetas de necesita un id idstintivo para luego poder moverlas o borrarlas.
-    --> se necesita un evento onclick en el icono de trash para poder borrarlas.
-poder ver el tiempo de hoy en la eregión del ordenador??
-clasificar las tareas por hacer en ello y hechas
-al situar el raton sobre la tarejta de la carta que aprecan las opciones de edicion y que se pueda interactuar con ellas (ref google keeps)
-al pinchar sobre la tarjeta se abre un  poopup con la taerjeta mas grande y las opciones d dicion
-anclar notas o recordatorio al inicio?
-estilo de las notas editables?
-dos tipos de tarjetas notas y recordartorios esto tienen una hora y fecha editable.
-*/
 //cargar si hay card guardadas
 const card_saved= localStorage.getItem('trashNotes');
     content = new Array();
@@ -20,10 +7,7 @@ if(card_saved){
      content.forEach(element => {createCard(element.text, element.id)});
      note_id =  content.map(element=> element.id);
 }
-if(content.length===0){
-    const container = document.getElementById('empty-trash-container');
-    container.style.display="flex";
-}
+trashIsEMpty(content);
 
 //funcion para crear las card
 function createCard(valorInput, valorId){
@@ -134,24 +118,65 @@ function restoreCard(element){
 
             const indexNota = trashNotes.findIndex(card => card.id === idNote);
 
-          if(indexNota !==-1){
-            const [restoreNote]= trashNotes.splice(indexNota,1);
-         notes_restored.push(restoreNote);
+            if(indexNota !==-1){
+                const [restoreNote]= trashNotes.splice(indexNota,1);
+                notes_restored.push(restoreNote);
 
-            localStorage.setItem('todolist',JSON.stringify (notes_restored));
-            localStorage.setItem('trashNotes', JSON.stringify(trashNotes));
-          }
-          
-          
-          
+                localStorage.setItem('todolist',JSON.stringify (notes_restored));
+                localStorage.setItem('trashNotes', JSON.stringify(trashNotes));
+            }
+
             trashNotes= trashNotes.filter(card=> card.id !== idNote);
 
             localStorage.setItem('trashNotes',JSON.stringify(trashNotes));
-
-            if(trashNotes.length  === 0){
-                const container = document.getElementById('empty-trash-container');
-                container.style.display="flex";
-            }
+            trashIsEMpty(trashNotes);
+            
         }
     });
+}
+
+const btn_empty = document.getElementById('btn-empty');
+btn_empty.addEventListener('click', (ev)=>{
+    ev.preventDefault();
+    let trashNotes = JSON.parse(localStorage.getItem('trashNotes'));
+    if(trashNotes.length!==0){
+        Swal.fire({
+            title: 'Delete all notes?',
+            icon: 'info',
+            showCancelButton: true, 
+            confirmButtonColor: '#3085d6', 
+            cancelButtonColor: '#d33', 
+            cancelButtonText: 'No', 
+            confirmButtonText: 'Yes' 
+
+        }).then(result =>{
+
+            if(result.isConfirmed){
+                //borrar todas las cards
+                document.querySelectorAll('.card-note').forEach(card => card.remove());
+
+                localStorage.removeItem('trashNotes');
+                trashNotes=[];
+
+                if(trashNotes.length  === 0){
+                    const container = document.getElementById('empty-trash-container');
+                    container.style.display="flex";
+                }
+            }
+        });
+    }else {
+        Swal.fire({
+            title: 'The bin is already empty',
+            icon: 'info',
+            confirmButtonText: 'Ok' 
+        })
+    }
+
+});
+
+function trashIsEMpty(trashNotes){
+    if(trashNotes.length  === 0){
+        const container = document.getElementById('empty-trash-container');
+        container.style.display="flex";
+    }
 }
