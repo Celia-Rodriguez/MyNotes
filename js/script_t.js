@@ -7,7 +7,7 @@ if(card_saved){
      content.forEach(element => {createCard(element.text, element.id)});
      note_id =  content.map(element=> element.id);
 }
-trashIsEMpty(content);
+trashIsEmpty(content);
 
 //funcion para crear las card
 function createCard(valorInput, valorId){
@@ -129,7 +129,7 @@ function restoreCard(element){
             trashNotes= trashNotes.filter(card=> card.id !== idNote);
 
             localStorage.setItem('trashNotes',JSON.stringify(trashNotes));
-            trashIsEMpty(trashNotes);
+            trashIsEmpty(trashNotes);
             
         }
     });
@@ -139,7 +139,7 @@ const btn_empty = document.getElementById('btn-empty');
 btn_empty.addEventListener('click', (ev)=>{
     ev.preventDefault();
     let trashNotes = JSON.parse(localStorage.getItem('trashNotes'));
-    if(trashNotes.length!==0){
+    if(trashNotes.length !==0 ){
         Swal.fire({
             title: 'Delete all notes?',
             icon: 'info',
@@ -155,16 +155,12 @@ btn_empty.addEventListener('click', (ev)=>{
                 //borrar todas las cards
                 document.querySelectorAll('.card-note').forEach(card => card.remove());
 
-                localStorage.removeItem('trashNotes');
-                trashNotes=[];
-
-                if(trashNotes.length  === 0){
-                    const container = document.getElementById('empty-trash-container');
-                    container.style.display="flex";
-                }
+                trashNotes =[];
+                localStorage.setItem('trashNotes', JSON.stringify(trashNotes));
+                trashIsEmpty(trashNotes);
             }
         });
-    }else {
+    } else {
         Swal.fire({
             title: 'The bin is already empty',
             icon: 'info',
@@ -174,8 +170,8 @@ btn_empty.addEventListener('click', (ev)=>{
 
 });
 
-function trashIsEMpty(trashNotes){
-    if(trashNotes.length  === 0){
+function trashIsEmpty(trashNotes){
+    if(trashNotes.length  === 0 || trashNotes === null){
         const container = document.getElementById('empty-trash-container');
         container.style.display="flex";
     }

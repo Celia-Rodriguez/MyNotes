@@ -110,7 +110,7 @@ function createCard(valorInput, valorId){
 //funcion para borrar las cards
 
 function deleteCard(element){
-    console.log(element);
+    //console.log(element);
     Swal.fire({
         title: 'Delete note',
         text: 'It will be sent to the trash for the time being, \n do you really want to delete the note?',
