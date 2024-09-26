@@ -195,6 +195,7 @@ main .notes .card-note{
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     transition:  all 0.2s ease;
+
 }
 main .notes .card-note:hover{
     border: rgba(19, 103, 138,0.7) 1px solid;
@@ -215,6 +216,8 @@ main .notes .card-note p{
     display: block;
     font-size: 0.8rem;
     margin-bottom: 10px;
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 main .notes .card-note .note-icons{
     display: flex;
