@@ -17,6 +17,7 @@
    --decoration: #13678A;
    --details: #45C4B0;
    --brightcolor: #DAFDBA;
+   --selected: #edfddf;
 }
 *{
     box-sizing: border-box;
@@ -95,6 +96,11 @@ body{
 }
 .sidebar .nav-menu li:hover{
     background-color: var(--brightcolor);
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.sidebar .nav-menu .li-selected{
+    background-color: var(--selected);
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
 }
@@ -234,11 +240,14 @@ footer{
     grid-area: 2/1/2/3;
     background-color: var(--decoration);
     color: var(--brightcolor);
-    text-align: center;
     padding: 20px;
     font-family: "Vanilla-cake";
     font-size: 1rem;
     letter-spacing: 1px;
+}
+footer p {
+    text-align: center;
+    margin: auto;
 }
 footer a{
     color: var(--background);

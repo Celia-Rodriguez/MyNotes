@@ -6,6 +6,7 @@
     <link rel="icon" type="image/png" href="../src/img/favicon.png">
     <title>MyNotes</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style_t.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/script_t.js" defer></script>
@@ -20,8 +21,8 @@
             <ul>
                 <li><i class="fa fa-sticky-note-o"> </i><a href="../index.html">Notes</a></li>
                 <li><i class="fa fa-calendar-o"> </i><a href="reminders.html">Reminders</a></li>
-                <li><i class="fa fa-folder-o"> </i><a href="archive.html">Archived notes</a></li>
-                <li><i class="fa fa-trash-o"> </i><a href="trash.html">Trash</a></li>
+                <li><i class="fa fa-folder-o"> </i><a href="archive.html">Archive</a></li>
+                <li class="li-selected"><i class="fa fa-trash-o"> </i><a href="trash.html">Bin</a></li>
             </ul> 
             </nav>
         </div>
@@ -30,11 +31,14 @@
         <div class="user">
             <img class="icon-user" src="../src/img/iconUser.png" alt="icon user">
         </div>
-        <!-- <div class="add-notes" id="add-notes">
-            <input class="add-notes-input" type="text" id="addNotesText" placeholder="Add a note...">
-            <button class="add-notes-btn" id="btnadd">+</button>
-        </div> -->
+        <div class="add-notes" id="empty-trash">
+            <button class="empty-trash-btn" id="btn-empty">Empty Bin</button>
+        </div>
         <div class="notes" id="card_container">
+        </div>
+        <div class="empty-trash-container" id="empty-trash-container">
+            <i class="fa fa-trash-o"> </i>
+            <h3>Nothing here</h3>
         </div>
     </main>
     <footer>

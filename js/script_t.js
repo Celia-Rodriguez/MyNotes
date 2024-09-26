@@ -1,6 +1,6 @@
 
 /*
-Crear, editar y borrar tarjetas de tareas
+ editar y restaurar las tarjetas borradas. Boton para vaciar la papelera
     --> a la hora de crear las tarjetas de necesita un id idstintivo para luego poder moverlas o borrarlas.
     --> se necesita un evento onclick en el icono de trash para poder borrarlas.
 poder ver el tiempo de hoy en la eregión del ordenador??
@@ -21,11 +21,8 @@ if(card_saved){
      note_id =  content.map(element=> element.id);
 }
 if(content.length===0){
-    const container = document.getElementById('card_container');
-    var noCards = document.createElement("h3");
-    noCards.setAttribute("class", "title-note");
-    noCards.textContent ="La papelera está vacía";
-    container.appendChild(container.appendChild(noCards));
+    const container = document.getElementById('empty-trash-container');
+    container.style.display="flex";
 }
 
 //funcion para crear las card
@@ -35,8 +32,10 @@ function createCard(valorInput, valorId){
     var divIcons = document.createElement("div");
     divIcons.setAttribute("class", "note-icons");
 
-    var edit= document.createElement("i");
-    edit.setAttribute("class", "fa fa-edit");
+    var restore= document.createElement("i");
+    restore.setAttribute("class", "fa fa-undo");
+    restore.setAttribute("onclick", "restoreCard(this)");
+
 
     var trash= document.createElement("i");
     trash.setAttribute("class", "fa fa-trash-o");
@@ -45,7 +44,7 @@ function createCard(valorInput, valorId){
     var archive= document.createElement("i");
     archive.setAttribute("class", "fa fa-folder-o");
 
-    divIcons.appendChild(edit);
+    divIcons.appendChild (restore);
     divIcons.appendChild(archive);
     divIcons.appendChild(trash);
 
@@ -56,7 +55,7 @@ function createCard(valorInput, valorId){
 
     var card_title = document.createElement("h3");
     card_title.setAttribute("class", "title-note");
-    card_title.textContent ="Tarjeta de prueba creada";
+    card_title.textContent ="Not title yet";
 
     var card_text =document.createElement("p");
     card_text.setAttribute("class","text-note");
@@ -72,16 +71,16 @@ function createCard(valorInput, valorId){
 
 //funcion para borrar las cards
 function deleteCard(element){
-    console.log(element);
+    //console.log(element);
     Swal.fire({
-        title: 'Eliminar nota',
-        text: 'Se eliminará definitivamente, \n ¿De verdad quieres eliminar la nota?',
+        title: 'Delete note',
+        text: 'It will be permanently deleted, \n do you really want to delete the note?',
         icon: 'warning',
         showCancelButton: true, 
         confirmButtonColor: '#3085d6', 
         cancelButtonColor: '#d33', 
-        cancelButtonText: 'Cancelar', 
-        confirmButtonText: 'Borrar' 
+        cancelButtonText: 'Cancel', 
+        confirmButtonText: 'Delete' 
 
     }).then(result =>{
 
@@ -98,16 +97,13 @@ function deleteCard(element){
             localStorage.setItem('trashNotes',JSON.stringify(trashNotes));
 
             if(trashNotes.length  === 0){
-                const container = document.getElementById('card_container');
-                var noCards = document.createElement("h3");
-                noCards.setAttribute("class", "title-note");
-                noCards.textContent ="La papelera está vacía";
-                container.appendChild(container.appendChild(noCards));
+                const container = document.getElementById('empty-trash-container');
+                container.style.display="flex";
             }
 
             Swal.fire(
-                'Borrado para siempre!!',
-                'La nota ha sido eliminada para siempre',
+                'Deleted forever!!!',
+                'Note has been permanently deleted',
                 'success'
             );
         }
@@ -115,7 +111,47 @@ function deleteCard(element){
     
 }
 
-function generarIdUnico() {
-    //console.log('div-' + Math.random().toString(36).substr(2, 9));
-   return 'div-' + Math.random().toString(36).substr(2, 9); // Genera un ID alfanumérico
+function restoreCard(element){
+    Swal.fire({
+        title: 'Restore note?',
+        icon: 'info',
+        showCancelButton: true, 
+        confirmButtonColor: '#3085d6', 
+        cancelButtonColor: '#d33', 
+        cancelButtonText: 'No', 
+        confirmButtonText: 'Yes' 
+
+    }).then(result =>{
+
+        if(result.isConfirmed){
+            const cardNote = element.closest('.card-note');
+            const idNote= cardNote.id;
+            cardNote.remove();
+
+            //eliminar del localStorage
+            let trashNotes = JSON.parse(localStorage.getItem('trashNotes')) || [];
+            let notes_restored = JSON.parse(localStorage.getItem('todolist')) || [];
+
+            const indexNota = trashNotes.findIndex(card => card.id === idNote);
+
+          if(indexNota !==-1){
+            const [restoreNote]= trashNotes.splice(indexNota,1);
+         notes_restored.push(restoreNote);
+
+            localStorage.setItem('todolist',JSON.stringify (notes_restored));
+            localStorage.setItem('trashNotes', JSON.stringify(trashNotes));
+          }
+          
+          
+          
+            trashNotes= trashNotes.filter(card=> card.id !== idNote);
+
+            localStorage.setItem('trashNotes',JSON.stringify(trashNotes));
+
+            if(trashNotes.length  === 0){
+                const container = document.getElementById('empty-trash-container');
+                container.style.display="flex";
+            }
+        }
+    });
 }

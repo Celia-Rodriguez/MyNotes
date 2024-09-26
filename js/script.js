@@ -93,7 +93,7 @@ function createCard(valorInput, valorId){
 
     var card_title = document.createElement("h3");
     card_title.setAttribute("class", "title-note");
-    card_title.textContent ="Tarjeta de prueba creada";
+    card_title.textContent ="Not title yet";
 
     var card_text =document.createElement("p");
     card_text.setAttribute("class","text-note");
@@ -112,14 +112,14 @@ function createCard(valorInput, valorId){
 function deleteCard(element){
     console.log(element);
     Swal.fire({
-        title: 'Eliminar nota',
-        text: 'Por el momento se mandará a la papelera, \n ¿De verdad quieres eliminar la nota?',
+        title: 'Delete note',
+        text: 'It will be sent to the trash for the time being, \n do you really want to delete the note?',
         icon: 'warning',
         showCancelButton: true, 
         confirmButtonColor: '#3085d6', 
         cancelButtonColor: '#d33', 
-        cancelButtonText: 'Cancelar', 
-        confirmButtonText: 'Borrar' 
+        cancelButtonText: 'No', 
+        confirmButtonText: 'Yes' 
 
     }).then(result =>{
 
@@ -128,14 +128,14 @@ function deleteCard(element){
             const idNote= cardNote.id;
             cardNote.remove();
             //eliminar del localStorage
-            console.log(idNote);
+            //console.log(idNote);
             
             let note_saved= JSON.parse(localStorage.getItem('todolist'));
             let trashNotes =localStorage.getItem('trashNotes');
             toTrash= new Array();
             if(trashNotes){
                toTrash= JSON.parse(trashNotes);
-                console.log(toTrash);
+                //console.log(toTrash);
             }
           
             const indexNota = note_saved.findIndex(card => card.id === idNote);
@@ -149,8 +149,8 @@ function deleteCard(element){
             }
 
             Swal.fire(
-                'Adios nota!!',
-                'La nota ha sido mandada a la papelera',
+                'Bye Bye!!',
+                'The note has been sent to the bin.',
                 'success'
             );
         }
