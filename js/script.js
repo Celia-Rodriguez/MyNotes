@@ -28,7 +28,7 @@ btn_add.addEventListener("click", (ev)=>{
 //añadir card a el html
     const input_add = document.getElementById("addNotesText");
 
-    var valTitle ="Tarjeta Guardada en el Storage";
+    var valTitle ="Sample Card on LocalStore";
     var valText= input_add.value;
     var valId= generarIdUnico();
     //console.log(valId);
@@ -40,8 +40,8 @@ btn_add.addEventListener("click", (ev)=>{
     //card no vacias gracias
     if (valText.trim() === "") {
         Swal.fire({
-            title: '¡Alerta!',
-            text: 'No se guardan las tarjetas vacías.',
+            title: 'HEY!!',
+            text: 'Empty cards are not stored.',
             icon: 'warning',
             confirmButtonText: 'Ok'
         });
