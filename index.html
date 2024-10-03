@@ -19,7 +19,6 @@
             <nav class="nav-menu">
             <ul>
                 <li class="li-selected"><i class="fa fa-sticky-note-o"> </i><a href="index.html">Notes</a></li>
-                <li><i class="fa fa-calendar-o"> </i><a href="views/reminders.html">Reminders</a></li>
                 <li><i class="fa fa-folder-o"> </i><a href="views/archive.html">Archive</a></li>
                 <li><i class="fa fa-trash-o"> </i><a href="views/trash.html">Bin</a></li>
             </ul> 
@@ -28,6 +27,8 @@
     </aside>
     <main>
         <div class="user">
+            <i class="fa fa-folder-o"></i>
+            <i class="fa fa-trash-o" onclick="deleteSelected()"></i>
             <img class="icon-user" src="src/img/iconUser.png" alt="icon user">
         </div>
         <div class="add-notes" id="add-notes">

@@ -1,6 +1,6 @@
 
 /*
-Crear, editar y borrar tarjetas de tareas
+editar y archivar tarjetas de tareas
     --> a la hora de crear las tarjetas de necesita un id idstintivo para luego poder moverlas o borrarlas.
     --> se necesita un evento onclick en el icono de trash para poder borrarlas.
 poder ver el tiempo de hoy en la eregión del ordenador??
@@ -10,6 +10,7 @@ al pinchar sobre la tarjeta se abre un  poopup con la taerjeta mas grande y las 
 anclar notas o recordatorio al inicio?
 estilo de las notas editables?
 dos tipos de tarjetas notas y recordartorios esto tienen una hora y fecha editable.
+añadir tooltips a los botones (i)
 */
 //cargar si hay card guardadas
 const card_saved= localStorage.getItem('todolist');
@@ -90,6 +91,7 @@ function createCard(valorInput, valorId){
     var card=document.createElement("div");
     card.setAttribute("class", "card-note");
     card.setAttribute("id", valorId);
+    card.setAttribute("onclick","selectCard(this.id)");
 
     var card_title = document.createElement("h3");
     card_title.setAttribute("class", "title-note");
@@ -161,4 +163,11 @@ function deleteCard(element){
 function generarIdUnico() {
     //console.log('div-' + Math.random().toString(36).substr(2, 9));
    return 'div-' + Math.random().toString(36).substr(2, 9); // Genera un ID alfanumérico
+}
+var idSelected= new Array();
+function selectCard(id){
+    const cardSelected = document.getElementById(id);
+    cardSelected.classList.add("card-selected");
+    idSelected.push(id);
+    console.log(idSelected);
 }
