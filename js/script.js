@@ -112,52 +112,36 @@ function createCard(valorInput, valorId){
 //funcion para borrar las cards
 
 function deleteCard(element){
-    //console.log(element);
-    Swal.fire({
-        title: 'Delete note',
-        text: 'It will be sent to the trash for the time being, \n do you really want to delete the note?',
-        icon: 'warning',
-        showCancelButton: true, 
-        confirmButtonColor: '#3085d6', 
-        cancelButtonColor: '#d33', 
-        cancelButtonText: 'No', 
-        confirmButtonText: 'Yes' 
-
-    }).then(result =>{
-
-        if(result.isConfirmed){
-            const cardNote = element.closest('.card-note');
-            const idNote= cardNote.id;
-            cardNote.remove();
-            //eliminar del localStorage
-            //console.log(idNote);
-            
-            let note_saved= JSON.parse(localStorage.getItem('todolist'));
-            let trashNotes =localStorage.getItem('trashNotes');
-            toTrash= new Array();
-            if(trashNotes){
-               toTrash= JSON.parse(trashNotes);
-                //console.log(toTrash);
-            }
-          
-            const indexNota = note_saved.findIndex(card => card.id === idNote);
-            if(indexNota !== -1){
-
-                 const [deleteNote] = note_saved.splice(indexNota,1);
-                 toTrash.push(deleteNote);
-
-                 localStorage.setItem('todolist',JSON.stringify(note_saved));
-                 localStorage.setItem('trashNotes', JSON.stringify(toTrash));
-            }
-
-            Swal.fire(
-                'Bye Bye!!',
-                'The note has been sent to the bin.',
-                'success'
-            );
-        }
-    });
+    const cardNote = element.closest('.card-note');
+    const idNote= cardNote.id;
+    cardNote.remove();
+    //eliminar del localStorage
+    //console.log(idNote);
     
+    let note_saved= JSON.parse(localStorage.getItem('todolist'));
+    let trashNotes =localStorage.getItem('trashNotes');
+    toTrash= new Array();
+    if(trashNotes){
+    toTrash= JSON.parse(trashNotes);
+        //console.log(toTrash);
+    }
+
+    const indexNota = note_saved.findIndex(card => card.id === idNote);
+    if(indexNota !== -1){
+
+        const [deleteNote] = note_saved.splice(indexNota,1);
+        toTrash.push(deleteNote);
+
+        localStorage.setItem('todolist',JSON.stringify(note_saved));
+        localStorage.setItem('trashNotes', JSON.stringify(toTrash));
+    }
+
+    Swal.fire(
+        'Bye Bye!!',
+        'The note has been sent to the bin.',
+        'success'
+    );
+
 }
 
 function generarIdUnico() {
@@ -167,7 +151,43 @@ function generarIdUnico() {
 var idSelected= new Array();
 function selectCard(id){
     const cardSelected = document.getElementById(id);
-    cardSelected.classList.add("card-selected");
-    idSelected.push(id);
-    console.log(idSelected);
+    const submenu= document.getElementById("submenu");
+    const span= document.getElementById("noteSelected");
+    if(cardSelected.classList.contains("card-selected")){
+        cardSelected.classList.remove("card-selected");
+        idSelected=idSelected.filter(element=> element !==id);
+    }else{
+        cardSelected.classList.add("card-selected");
+        idSelected.push(id);
+    }
+
+    if(idSelected.length !==0){
+        submenu.style.display="flex";
+        span.textContent= idSelected.length  +" " + "selected";
+        
+        const cancelSelect= document.getElementById("cancelSelected");
+        cancelSelect.addEventListener("click",(ev)=>{
+            ev.preventDefault();
+            const cardClassSelected = document.querySelectorAll('.card-selected');
+            cardClassSelected.forEach(element=>{
+                element.classList.remove("card-selected");
+            });
+            idSelected= new Array();
+            submenu.style.display="none";
+            span.textContent="";
+        });
+    }else{
+        submenu.style.display="none";
+        span.textContent="";
+    }
+}
+
+function deleteSelected(){
+    const cardClassSelected = document.querySelectorAll('.card-selected');
+console.log(cardClassSelected)
+    for (const element of cardClassSelected){
+        console.log(element);
+        element.classList.remove("card-selected");
+        deleteCard(element);
+    }
 }

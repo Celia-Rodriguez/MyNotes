@@ -142,12 +142,24 @@ main .user{
     justify-content: flex-end;
     padding: 30px;
 }
+main .user .submenu{
+    display: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    font-size: 20px;
+    color: var(--decoration);
+}
+main .user span{
+    margin: 0 30px 0 0;
+}
+main .user #cancelSelected{
+    cursor: pointer;
+}
 main .user i{
     font-size: 30px;
     margin: 0 30px 0 0;
     cursor: pointer;
-    color: var(--decoration);
-    display: none ;
 }
 main .user .icon-user{
     height: 50px;
