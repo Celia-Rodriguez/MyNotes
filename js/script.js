@@ -3,24 +3,63 @@
 editar y archivar tarjetas de tareas
     --> a la hora de crear las tarjetas de necesita un id idstintivo para luego poder moverlas o borrarlas.
     --> se necesita un evento onclick en el icono de trash para poder borrarlas.
-poder ver el tiempo de hoy en la eregión del ordenador??
-clasificar las tareas por hacer en ello y hechas
 al situar el raton sobre la tarejta de la carta que aprecan las opciones de edicion y que se pueda interactuar con ellas (ref google keeps)
 al pinchar sobre la tarjeta se abre un  poopup con la taerjeta mas grande y las opciones d dicion
 anclar notas o recordatorio al inicio?
 estilo de las notas editables?
-dos tipos de tarjetas notas y recordartorios esto tienen una hora y fecha editable.
 añadir tooltips a los botones (i)
 */
+
+//QUEDA POR ARREGLAR EL AÑADIR NOTA
+//ARCHIVAR NOTA
+//HACER LAS NOTAS EDITABLES
+
 //cargar si hay card guardadas
 const card_saved= localStorage.getItem('todolist');
-    content = new Array();
-    note_id = new Array();
+    let content = new Array();
+    let note_id = new Array();
 if(card_saved){
      content=JSON.parse(card_saved);
      content.forEach(element => {createCard(element.text, element.id)});
      note_id =  content.map(element=> element.id);
 }
+//Transformar los botones
+
+const inputadd= document.getElementById("addNote");
+const inputContainer = document.getElementById("inputContainer");
+inputadd.addEventListener("click", function(){
+    inputadd.classList.add("hidden");
+
+    const inputTitle = document.createElement('input');
+        inputTitle.type = 'text';
+        inputTitle.placeholder = 'Here goes the title';
+        inputTitle.className = 'title-input';
+        inputTitle.setAttribute("id","addNotesTitle");
+
+        const inputText = document.createElement('textarea');
+        inputText.placeholder = 'Here goes the text';
+        inputText.className = 'text-input';
+        inputText.setAttribute("id","addNotesText");
+
+        inputContainer.appendChild(inputTitle);
+        inputContainer.appendChild(inputText);
+
+        inputContainer.style.display="flex";
+
+        document.addEventListener('click', function(event) {
+
+            if (!inputContainer.contains(event.target) && event.target !== inputadd) {
+
+                inputadd.classList.remove('hidden');
+                // Limpiar y eliminar los inputs B y C
+                inputContainer.innerHTML = '';
+                inputContainer.style.display="none";
+                // Eliminar el evento de clic en el documento para evitar múltiples adiciones
+                document.removeEventListener('click', arguments.callee);
+            }
+        });
+});
+
 
 //Añadir cards
 const btn_add = document.getElementById("btnadd");
@@ -148,22 +187,25 @@ function generarIdUnico() {
     //console.log('div-' + Math.random().toString(36).substr(2, 9));
    return 'div-' + Math.random().toString(36).substr(2, 9); // Genera un ID alfanumérico
 }
-var idSelected= new Array();
+
 function selectCard(id){
+    
     const cardSelected = document.getElementById(id);
     const submenu= document.getElementById("submenu");
     const span= document.getElementById("noteSelected");
+    
+
     if(cardSelected.classList.contains("card-selected")){
         cardSelected.classList.remove("card-selected");
-        idSelected=idSelected.filter(element=> element !==id);
     }else{
         cardSelected.classList.add("card-selected");
-        idSelected.push(id);
     }
 
-    if(idSelected.length !==0){
+    const cardClassSelected =[... document.querySelectorAll('.card-selected')];
+
+    if(cardClassSelected.length >0){
         submenu.style.display="flex";
-        span.textContent= idSelected.length  +" " + "selected";
+        span.textContent= cardClassSelected.length  +" " + "selected";
         
         const cancelSelect= document.getElementById("cancelSelected");
         cancelSelect.addEventListener("click",(ev)=>{
@@ -172,7 +214,6 @@ function selectCard(id){
             cardClassSelected.forEach(element=>{
                 element.classList.remove("card-selected");
             });
-            idSelected= new Array();
             submenu.style.display="none";
             span.textContent="";
         });
@@ -180,6 +221,7 @@ function selectCard(id){
         submenu.style.display="none";
         span.textContent="";
     }
+    
 }
 
 function deleteSelected(){

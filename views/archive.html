@@ -26,11 +26,18 @@
     </aside>
     <main>
         <div class="user">
+            <div class="submenu" id="submenu">
+                <div>
+                    <span id="cancelSelected">X</span>
+                    <span id="noteSelected"></span>
+                </div>
+                <div>
+                     <i class="fa fa-folder-o"></i>
+                    <i class="fa fa-trash-o" onclick="deleteSelected()"></i>
+                </div>
+
+            </div>
             <img class="icon-user" src="../src/img/iconUser.png" alt="icon user">
-        </div>
-        <div class="add-notes" id="add-notes">
-            <input class="add-notes-input" type="text" id="addNotesText" placeholder="Add a note...">
-            <button class="add-notes-btn" id="btnadd">+</button>
         </div>
         <div class="notes" id="card_container">
            <h2>Coming soon</h2>

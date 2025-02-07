@@ -173,16 +173,44 @@ main .add-notes{
 main .add-notes .add-notes-input{
     width: 350px;
     padding: 8px;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
+    border-radius: 30px;
     border: var(--decoration) 1px solid;
     box-shadow: 0 0 5px rgba(69, 196, 176, 0.6);
-    transition:  all 0.2s ease;
 }
-main .add-notes .add-notes-input:focus{
+main .add-notes .add-content-input{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    border-radius: 30px;
+    border: var(--decoration) 1px solid;
+}
+main .add-notes .add-content-input input{
+    width: 350px;
+    padding: 8px;
+    border: none;
+    transition:  all 0.2s ease;
+    font-size: 14px;
+}
+main .add-notes .add-content-input .text-input{
+    width: 350px;
+    padding: 8px;
+    border: none;
+    transition:  all 0.2s ease;
+    height: 50px;
+    resize: none;
+    font-family: 'Poppins-Regular';
+    font-size: 14px;
+}
+main .add-notes .add-content-input input:focus{
     outline: none;
-    border: var(--details) 1px solid;
-    padding: 15px;
+    border-bottom: var(--details) 1px solid;
+    padding: 15px 8px 15px 8px;
+}
+main .add-notes .add-content-input textarea:focus{
+    outline: none;
+    height: 100px;
 }
 main .add-notes .add-notes-btn{
     cursor: pointer;
@@ -288,4 +316,8 @@ footer p {
 }
 footer a{
     color: var(--background);
+}
+/**** EXTRAS ****/
+.hidden {
+    display: none;
 }
