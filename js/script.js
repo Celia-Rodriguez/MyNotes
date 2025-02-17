@@ -1,17 +1,4 @@
 
-/*
-editar y archivar tarjetas de tareas
-
-al pinchar sobre la tarjeta se abre un  poopup con la taerjeta mas grande y las opciones de edicion
-estilo de las notas editables?
-añadir tooltips a los botones (i)
-*/
-
-//seleccionar varias cards y archivarlas
-//seleccionar cards en archive
-//cuando selecionar alguna card en notes y las archivas se sigue viendo el menu de arriba
-//HACER LAS NOTAS EDITABLES
-
 //cargar si hay card guardadas
 const card_saved= localStorage.getItem('todolist');
     let content = new Array();
@@ -99,7 +86,6 @@ function guardarNota() {
 
     createCard(valTitle, valText, valId);
 
-    // Guardar en localStorage
     var new_card = {
         title: valTitle,
         text: valText,
@@ -108,7 +94,6 @@ function guardarNota() {
     content.push(new_card);
     localStorage.setItem('todolist', JSON.stringify(content));
 
-    // Limpiar los inputs y ocultarlos
     inputTitle.value = "";
     inputText.value = "";
     inputadd.classList.remove('hidden');
@@ -125,6 +110,7 @@ function createCard(valTitle, valorInput, valorId){
 
     var edit= document.createElement("i");
     edit.setAttribute("class", "fa fa-edit");
+    edit.setAttribute("onclick", "editCard(this)");
 
     var trash= document.createElement("i");
     trash.setAttribute("class", "fa fa-trash-o");
@@ -138,7 +124,7 @@ function createCard(valTitle, valorInput, valorId){
     divIcons.appendChild(archive);
     divIcons.appendChild(trash);
 
-    //Creacion notas
+    //creacion notas
     var card=document.createElement("div");
     card.setAttribute("class", "card-note");
     card.setAttribute("id", valorId);
@@ -158,6 +144,57 @@ function createCard(valTitle, valorInput, valorId){
 
     const container = document.getElementById('card_container');
     container.appendChild(card);
+}
+
+//funcion para editar las cards
+let currentCard = null;
+
+function editCard(element) {
+    currentCard = element.closest('.card-note');
+
+    const title = currentCard.querySelector('.title-note').textContent;
+    const text = currentCard.querySelector('.text-note').textContent;
+
+    document.getElementById("editTitle").value = title;
+    document.getElementById("editText").value = text;
+    document.getElementById("editModal").style.display = "flex";
+}
+
+
+//guardar cambios de card editada
+function saveEdit() {
+    if (!currentCard) return;
+
+    const newTitle = document.getElementById("editTitle").value.trim();
+    const newText = document.getElementById("editText").value.trim();
+
+    const cardId = currentCard.id;
+    let notes = JSON.parse(localStorage.getItem('todolist')) || [];
+    let noteIndex = notes.findIndex(note => note.id === cardId);
+
+    if (noteIndex !== -1) {
+        const originalTitle = notes[noteIndex].title;
+        const originalText = notes[noteIndex].text;
+
+        // mantener los valores originales
+        const finalTitle = newTitle === "" ? originalTitle : newTitle;
+        const finalText = newText === "" ? originalText : newText;
+
+        currentCard.querySelector('.title-note').textContent = finalTitle;
+        currentCard.querySelector('.text-note').textContent = finalText;
+
+        notes[noteIndex].title = finalTitle;
+        notes[noteIndex].text = finalText;
+        localStorage.setItem('todolist', JSON.stringify(notes));
+
+        closeModal();
+    }
+}
+
+
+//cerrar modal
+function closeModal() {
+    document.getElementById("editModal").style.display = "none";
 }
 
 //funcion para borrar las cards

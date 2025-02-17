@@ -195,12 +195,18 @@ main .add-notes .add-content-input input{
     transition:  all 0.2s ease;
     font-size: 14px;
 }
-main .add-notes .add-content-input .text-input{
+.title-input{
+    width: 350px;
+    padding: 8px;
+    border: none;
+
+}
+.text-input{
     width: 350px;
     padding: 8px;
     border: none;
     transition:  all 0.2s ease;
-    height: 50px;
+    height: fit-content;
     resize: none;
     font-family: 'Poppins-Regular';
     font-size: 14px;
@@ -210,24 +216,11 @@ main .add-notes .add-content-input input:focus{
     border-bottom: var(--details) 1px solid;
     padding: 15px 8px 15px 8px;
 }
-main .add-notes .add-content-input textarea:focus{
+textarea:focus{
     outline: none;
     height: 100px;
 }
-main .add-notes .add-notes-btn{
-    cursor: pointer;
-    width: 50px;
-    padding: 8px;
-    border-radius: 30px;
-    border: var(--decoration) 1px solid;
-    box-shadow: 0 0 5px rgba(69, 196, 176, 0.6);
-    background-color: var(--decoration);
-    color: var(--brightcolor);
-}
-main .add-notes .add-notes-btn:hover{
-    background-color: var(--brightcolor);
-    color: var(--decoration);
-}
+
 main .notes{
     min-width: fit-content;
     display: grid;
@@ -322,4 +315,68 @@ footer a{
 /**** EXTRAS ****/
 .hidden {
     display: none;
+}
+
+/******************** MODAL *******************/
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    background: var(--background);
+    color: var(--text);
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+.input-modal{
+    width: 350px;
+    border-radius: 10px;
+    border: var(--decoration) 1px solid;
+    box-shadow: 0 0 5px rgba(69, 196, 176, 0.6);
+}
+.input-modal:focus{
+    outline: none;
+    border-bottom: var(--details) 1px solid;
+    padding: 15px 8px 15px 8px;
+}
+.btn-modal{
+    width: 350px;
+    padding: 8px;
+    border-radius: 30px;
+    border: var(--decoration) 1px solid;
+    box-shadow: 0 0 5px rgba(69, 196, 176, 0.6);
+    background-color: var(--decoration);
+    color: var(--brightcolor);
+}
+
+.btn-modal:hover{
+    background-color: var(--brightcolor);
+    color: var(--decoration);
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 25px;
+    cursor: pointer;
+    color: var(--decoration);
 }

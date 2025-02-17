@@ -25,6 +25,10 @@ function createCard(valTitle, valorInput, valorId){
     var divIcons = document.createElement("div");
     divIcons.setAttribute("class", "note-icons");
 
+    var edit= document.createElement("i");
+    edit.setAttribute("class", "fa fa-edit");
+    edit.setAttribute("onclick", "editCard(this)");
+
     var restore= document.createElement("i");
     restore.setAttribute("class", "fa fa-undo");
     restore.setAttribute("onclick", "restoreCard(this)");
@@ -35,6 +39,7 @@ function createCard(valTitle, valorInput, valorId){
     trash.setAttribute("onclick", "deleteCard(this)");
 
     divIcons.appendChild (restore);
+    divIcons.appendChild(edit);
     divIcons.appendChild(trash);
 
     //Creacion notas
@@ -97,6 +102,50 @@ function restoreCard(element){
             
         }
     });
+}
+
+//funcion para editar las cards
+let currentCard = null;
+
+function editCard(element) {
+    currentCard = element.closest('.card-note');
+
+    const title = currentCard.querySelector('.title-note').textContent;
+    const text = currentCard.querySelector('.text-note').textContent;
+
+    document.getElementById("editTitle").value = title;
+    document.getElementById("editText").value = text;
+    document.getElementById("editModal").style.display = "flex";
+}
+
+
+//guardar cambios de card editada
+function saveEdit() {
+    if (!currentCard) return;
+
+    const newTitle = document.getElementById("editTitle").value;
+    const newText = document.getElementById("editText").value;
+
+    currentCard.querySelector('.title-note').textContent = newTitle;
+    currentCard.querySelector('.text-note').textContent = newText;
+
+    const cardId = currentCard.id;
+
+    let notes = JSON.parse(localStorage.getItem('archiveNotes')) || [];
+    let noteIndex = notes.findIndex(note => note.id === cardId);
+
+    if (noteIndex !== -1) {
+        notes[noteIndex].title = newTitle;
+        notes[noteIndex].text = newText;
+        localStorage.setItem('archiveNotes', JSON.stringify(notes));
+    }
+
+    closeModal();
+}
+
+//cerrar modal
+function closeModal() {
+    document.getElementById("editModal").style.display = "none";
 }
 
 //funcion para borrar las cards

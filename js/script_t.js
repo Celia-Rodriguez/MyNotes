@@ -26,11 +26,7 @@ function createCard(valTitle, valorInput, valorId){
     trash.setAttribute("class", "fa fa-trash-o");
     trash.setAttribute("onclick", "deleteCard(this)");
 
-    var archive= document.createElement("i");
-    archive.setAttribute("class", "fa fa-folder-o");
-
     divIcons.appendChild (restore);
-    divIcons.appendChild(archive);
     divIcons.appendChild(trash);
 
     //Creacion notas
