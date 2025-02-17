@@ -182,6 +182,8 @@ function deleteCard(element){
         'success'
     );
 
+    archiveIsEmpty(content);
+
 }
 
 function selectCard(id){
