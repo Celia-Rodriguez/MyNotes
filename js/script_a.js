@@ -83,7 +83,7 @@ function restoreCard(element){
 
             //eliminar del localStorage
             let archiveNotes = JSON.parse(localStorage.getItem('archiveNotes')) || [];
-            let notes_restored = JSON.parse(localStorage.getItem('archiveNotes')) || [];
+            let notes_restored = JSON.parse(localStorage.getItem('todolist')) || [];
 
             const indexNota = archiveNotes.findIndex(card => card.id === idNote);
 
@@ -91,14 +91,14 @@ function restoreCard(element){
                 const [restoreNote]= archiveNotes.splice(indexNota,1);
                 notes_restored.push(restoreNote);
 
-                localStorage.setItem('archiveNotes',JSON.stringify (notes_restored));
+                localStorage.setItem('todolist',JSON.stringify (notes_restored));
                 localStorage.setItem('archiveNotes', JSON.stringify(archiveNotes));
             }
 
             archiveNotes= archiveNotes.filter(card=> card.id !== idNote);
 
             localStorage.setItem('archiveNotes',JSON.stringify(archiveNotes));
-            //trashIsEmpty(archiveNotes);
+            archiveIsEmpty(archiveNotes)
             
         }
     });
@@ -204,7 +204,6 @@ function selectCard(id){
             cardSelected.classList.add("card-selected");
         }
     }
-
 
     const cardClassSelected =[... document.querySelectorAll('.card-selected')];
 

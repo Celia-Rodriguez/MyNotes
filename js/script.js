@@ -268,7 +268,6 @@ function archiveCard(element){
 }
 
 function generarIdUnico() {
-    //console.log('div-' + Math.random().toString(36).substr(2, 9));
    return 'div-' + Math.random().toString(36).substr(2, 9); // Genera un ID alfanumérico
 }
 
