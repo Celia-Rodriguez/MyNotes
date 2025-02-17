@@ -1,16 +1,15 @@
 
 /*
 editar y archivar tarjetas de tareas
-    --> a la hora de crear las tarjetas de necesita un id idstintivo para luego poder moverlas o borrarlas.
-    --> se necesita un evento onclick en el icono de trash para poder borrarlas.
-al situar el raton sobre la tarejta de la carta que aprecan las opciones de edicion y que se pueda interactuar con ellas (ref google keeps)
-al pinchar sobre la tarjeta se abre un  poopup con la taerjeta mas grande y las opciones d dicion
-anclar notas o recordatorio al inicio?
+
+al pinchar sobre la tarjeta se abre un  poopup con la taerjeta mas grande y las opciones de edicion
 estilo de las notas editables?
 añadir tooltips a los botones (i)
 */
 
-//ARCHIVAR NOTA
+//seleccionar varias cards y archivarlas
+//seleccionar cards en archive
+//cuando selecionar alguna card en notes y las archivas se sigue viendo el menu de arriba
 //HACER LAS NOTAS EDITABLES
 
 //cargar si hay card guardadas
