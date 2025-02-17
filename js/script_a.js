@@ -163,7 +163,6 @@ function deleteCard(element){
     toTrash= new Array();
     if(trashNotes){
     toTrash= JSON.parse(trashNotes);
-        //console.log(toTrash);
     }
 
     const indexNota = note_saved.findIndex(card => card.id === idNote);
@@ -176,13 +175,17 @@ function deleteCard(element){
         localStorage.setItem('trashNotes', JSON.stringify(toTrash));
     }
 
+    let archivedNotes = JSON.parse(localStorage.getItem('archiveNotes')) || [];
+    if(archivedNotes.length  === 0){
+        const container = document.getElementById('empty-archive-container');
+        container.style.display="flex";
+    }
+
     Swal.fire(
         'Bye Bye!!',
         'The note has been sent to the bin.',
         'success'
     );
-
-    archiveIsEmpty(content);
 
 }
 
@@ -192,11 +195,16 @@ function selectCard(id){
     const submenu= document.getElementById("submenu");
     const span= document.getElementById("noteSelected");
     
-    if(cardSelected.classList.contains("card-selected")){
-        cardSelected.classList.remove("card-selected");
+    if(cardSelected === null){
+        return;
     }else{
-        cardSelected.classList.add("card-selected");
+        if(cardSelected.classList.contains("card-selected")){
+            cardSelected.classList.remove("card-selected");
+        }else{
+            cardSelected.classList.add("card-selected");
+        }
     }
+
 
     const cardClassSelected =[... document.querySelectorAll('.card-selected')];
 

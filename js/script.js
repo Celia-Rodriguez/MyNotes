@@ -278,10 +278,14 @@ function selectCard(id){
     const submenu= document.getElementById("submenu");
     const span= document.getElementById("noteSelected");
 
-    if(cardSelected.classList.contains("card-selected")){
-        cardSelected.classList.remove("card-selected");
+    if(cardSelected === null){
+        return;
     }else{
-        cardSelected.classList.add("card-selected");
+        if(cardSelected.classList.contains("card-selected")){
+            cardSelected.classList.remove("card-selected");
+        }else{
+            cardSelected.classList.add("card-selected");
+        }
     }
 
     const cardClassSelected =[... document.querySelectorAll('.card-selected')];
