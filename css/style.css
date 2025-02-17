@@ -168,7 +168,9 @@ main .user .icon-user{
 }
 main .add-notes{
     display: flex;
+    align-items: center;
     justify-content: center;
+    gap: 10px;
 }
 main .add-notes .add-notes-input{
     width: 350px;
@@ -214,10 +216,9 @@ main .add-notes .add-content-input textarea:focus{
 }
 main .add-notes .add-notes-btn{
     cursor: pointer;
-    font-size: 1.2rem;
+    width: 50px;
     padding: 8px;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
+    border-radius: 30px;
     border: var(--decoration) 1px solid;
     box-shadow: 0 0 5px rgba(69, 196, 176, 0.6);
     background-color: var(--decoration);
@@ -228,6 +229,7 @@ main .add-notes .add-notes-btn:hover{
     color: var(--decoration);
 }
 main .notes{
+    min-width: fit-content;
     display: grid;
     grid-template-columns: repeat(6, 230px);
     grid-template-rows: auto auto;

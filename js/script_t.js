@@ -4,13 +4,14 @@ const card_saved= localStorage.getItem('trashNotes');
     note_id = new Array();
 if(card_saved){
      content=JSON.parse(card_saved);
-     content.forEach(element => {createCard(element.text, element.id)});
+     content=JSON.parse(card_saved);
+     content.forEach(element => {createCard(element.title, element.text, element.id)});
      note_id =  content.map(element=> element.id);
 }
 trashIsEmpty(content);
 
 //funcion para crear las card
-function createCard(valorInput, valorId){
+function createCard(valTitle, valorInput, valorId){
 
     //creación iconos CRUD
     var divIcons = document.createElement("div");
@@ -39,7 +40,7 @@ function createCard(valorInput, valorId){
 
     var card_title = document.createElement("h3");
     card_title.setAttribute("class", "title-note");
-    card_title.textContent ="Not title yet";
+    card_title.textContent =valTitle;
 
     var card_text =document.createElement("p");
     card_text.setAttribute("class","text-note");

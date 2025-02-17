@@ -10,7 +10,6 @@ estilo de las notas editables?
 añadir tooltips a los botones (i)
 */
 
-//QUEDA POR ARREGLAR EL AÑADIR NOTA
 //ARCHIVAR NOTA
 //HACER LAS NOTAS EDITABLES
 
@@ -20,65 +19,70 @@ const card_saved= localStorage.getItem('todolist');
     let note_id = new Array();
 if(card_saved){
      content=JSON.parse(card_saved);
-     content.forEach(element => {createCard(element.text, element.id)});
+     content.forEach(element => {createCard(element.title, element.text, element.id)});
      note_id =  content.map(element=> element.id);
 }
-//Transformar los botones
 
-const inputadd= document.getElementById("addNote");
+// Transformar el botón en inputs
+const inputadd = document.getElementById("addNote");
 const inputContainer = document.getElementById("inputContainer");
-inputadd.addEventListener("click", function(){
+
+inputadd.addEventListener("click", function () {
     inputadd.classList.add("hidden");
 
     const inputTitle = document.createElement('input');
-        inputTitle.type = 'text';
-        inputTitle.placeholder = 'Here goes the title';
-        inputTitle.className = 'title-input';
-        inputTitle.setAttribute("id","addNotesTitle");
+    inputTitle.type = 'text';
+    inputTitle.placeholder = 'Here goes the title';
+    inputTitle.className = 'title-input';
+    inputTitle.setAttribute("id", "addNotesTitle");
 
-        const inputText = document.createElement('textarea');
-        inputText.placeholder = 'Here goes the text';
-        inputText.className = 'text-input';
-        inputText.setAttribute("id","addNotesText");
+    const inputText = document.createElement('textarea');
+    inputText.placeholder = 'Here goes the text';
+    inputText.className = 'text-input';
+    inputText.setAttribute("id", "addNotesText");
 
-        inputContainer.appendChild(inputTitle);
-        inputContainer.appendChild(inputText);
+    inputContainer.appendChild(inputTitle);
+    inputContainer.appendChild(inputText);
 
-        inputContainer.style.display="flex";
+    inputContainer.style.display = "flex";
 
-        document.addEventListener('click', function(event) {
+    // Enfocar automáticamente en el título
+    inputTitle.focus();
 
-            if (!inputContainer.contains(event.target) && event.target !== inputadd) {
+    // Cerrar inputs al hacer clic fuera
+    document.addEventListener('click', function closeInputs(event) {
+        if (!inputContainer.contains(event.target) && event.target !== inputadd) {
+            inputadd.classList.remove('hidden');
+            inputContainer.innerHTML = '';
+            inputContainer.style.display = "none";
+            document.removeEventListener('click', closeInputs);
+        }
+    });
 
-                inputadd.classList.remove('hidden');
-                // Limpiar y eliminar los inputs B y C
-                inputContainer.innerHTML = '';
-                inputContainer.style.display="none";
-                // Eliminar el evento de clic en el documento para evitar múltiples adiciones
-                document.removeEventListener('click', arguments.callee);
-            }
-        });
+    // Detectar Enter en los inputs
+    inputTitle.addEventListener("keydown", handleEnter);
+    inputText.addEventListener("keydown", handleEnter);
 });
 
-
-//Añadir cards
-const btn_add = document.getElementById("btnadd");
-btn_add.addEventListener("click", (ev)=>{
-    ev.preventDefault();
-//añadir card a el html
-    const input_add = document.getElementById("addNotesText");
-
-    var valTitle ="Sample Card on LocalStore";
-    var valText= input_add.value;
-    var valId= generarIdUnico();
-    //console.log(valId);
-
-    while(note_id.includes(valId)){
-        valId = generarIdUnico();
+// Función para manejar Enter y crear una tarjeta
+function handleEnter(event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        guardarNota();
     }
+}
 
-    //card no vacias gracias
-    if (valText.trim() === "") {
+// Función para guardar la tarjeta
+function guardarNota() {
+    const inputTitle = document.getElementById("addNotesTitle");
+    const inputText = document.getElementById("addNotesText");
+
+    if (!inputText) return;
+
+    var valTitle = inputTitle ? inputTitle.value.trim() : "Sample Card on LocalStore";
+    var valText = inputText.value.trim();
+
+    if (valText === ""  && valTitle === "") {
         Swal.fire({
             title: 'HEY!!',
             text: 'Empty cards are not stored.',
@@ -88,25 +92,33 @@ btn_add.addEventListener("click", (ev)=>{
         return;
     }
 
-    createCard(valText, valId);
+    // Generar un ID único
+    var valId = generarIdUnico();
+    while (note_id.includes(valId)) {
+        valId = generarIdUnico();
+    }
 
-//guardar en el ssesionStorage
-    var new_card ={
+    createCard(valTitle, valText, valId);
+
+    // Guardar en localStorage
+    var new_card = {
         title: valTitle,
         text: valText,
         id: valId
     };
-    //console.log(new_card);
-    //console.log(content);
     content.push(new_card);
-    localStorage.setItem('todolist', JSON.stringify(content))
+    localStorage.setItem('todolist', JSON.stringify(content));
 
-//deja como estaba el input add note
-    input_add.value="";
-});
+    // Limpiar los inputs y ocultarlos
+    inputTitle.value = "";
+    inputText.value = "";
+    inputadd.classList.remove('hidden');
+    inputContainer.innerHTML = '';
+    inputContainer.style.display = "none";
+}
 
 //funcion para crear las card
-function createCard(valorInput, valorId){
+function createCard(valTitle, valorInput, valorId){
 
     //creación iconos CRUD
     var divIcons = document.createElement("div");
@@ -121,6 +133,7 @@ function createCard(valorInput, valorId){
 
     var archive= document.createElement("i");
     archive.setAttribute("class", "fa fa-folder-o");
+    archive.setAttribute("onclick", "archiveCard(this)");
 
     divIcons.appendChild(edit);
     divIcons.appendChild(archive);
@@ -134,7 +147,7 @@ function createCard(valorInput, valorId){
 
     var card_title = document.createElement("h3");
     card_title.setAttribute("class", "title-note");
-    card_title.textContent ="Not title yet";
+    card_title.textContent = valTitle;
 
     var card_text =document.createElement("p");
     card_text.setAttribute("class","text-note");
@@ -149,7 +162,6 @@ function createCard(valorInput, valorId){
 }
 
 //funcion para borrar las cards
-
 function deleteCard(element){
     const cardNote = element.closest('.card-note');
     const idNote= cardNote.id;
@@ -183,6 +195,39 @@ function deleteCard(element){
 
 }
 
+//archivar cards
+function archiveCard(element){
+    const cardNote = element.closest('.card-note');
+    const idNote= cardNote.id;
+    cardNote.remove();
+    //eliminar del localStorage
+    //console.log(idNote);
+    
+    let note_saved= JSON.parse(localStorage.getItem('todolist'));
+    let archiveNotes =localStorage.getItem('archiveNotes');
+    toArchive= new Array();
+    if(archiveNotes){
+    toArchive= JSON.parse(archiveNotes);
+        //console.log(toTrash);
+    }
+
+    const indexNota = note_saved.findIndex(card => card.id === idNote);
+    if(indexNota !== -1){
+
+        const [archiveNote] = note_saved.splice(indexNota,1);
+        toArchive.push(archiveNote);
+
+        localStorage.setItem('todolist',JSON.stringify(note_saved));
+        localStorage.setItem('archiveNotes', JSON.stringify(toArchive));
+    }
+
+    Swal.fire(
+        'Archived!!',
+        'The note has been sent to the archive folder.',
+        'success'
+    );
+}
+
 function generarIdUnico() {
     //console.log('div-' + Math.random().toString(36).substr(2, 9));
    return 'div-' + Math.random().toString(36).substr(2, 9); // Genera un ID alfanumérico
@@ -191,6 +236,7 @@ function generarIdUnico() {
 function selectCard(id){
     
     const cardSelected = document.getElementById(id);
+    if(cardSelected=== null) {return;}
     const submenu= document.getElementById("submenu");
     const span= document.getElementById("noteSelected");
     
