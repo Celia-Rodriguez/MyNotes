@@ -34,17 +34,14 @@ function createCard(valTitle, valorInput, valorId){
     trash.setAttribute("class", "fa fa-trash-o");
     trash.setAttribute("onclick", "deleteCard(this)");
 
-    var archive= document.createElement("i");
-    archive.setAttribute("class", "fa fa-folder-o");
-
     divIcons.appendChild (restore);
-    divIcons.appendChild(archive);
     divIcons.appendChild(trash);
 
     //Creacion notas
     var card=document.createElement("div");
     card.setAttribute("class", "card-note");
     card.setAttribute("id", valorId);
+    card.setAttribute("onclick","selectCard(this.id)");
 
     var card_title = document.createElement("h3");
     card_title.setAttribute("class", "title-note");
@@ -106,9 +103,11 @@ function restoreCard(element){
 function deleteCard(element){
     const cardNote = element.closest('.card-note');
     const idNote= cardNote.id;
+    if (cardNote.classList.contains("card-selected")) {
+        cardNote.classList.remove("card-selected");
+        updateSubmenuVisibility()
+    }
     cardNote.remove();
-    //eliminar del localStorage
-    //console.log(idNote);
     
     let note_saved= JSON.parse(localStorage.getItem('archiveNotes'));
     let trashNotes =localStorage.getItem('trashNotes');
@@ -134,4 +133,71 @@ function deleteCard(element){
         'success'
     );
 
+}
+
+function selectCard(id){
+    
+    const cardSelected = document.getElementById(id);
+    const submenu= document.getElementById("submenu");
+    const span= document.getElementById("noteSelected");
+    
+    if(cardSelected.classList.contains("card-selected")){
+        cardSelected.classList.remove("card-selected");
+    }else{
+        cardSelected.classList.add("card-selected");
+    }
+
+    const cardClassSelected =[... document.querySelectorAll('.card-selected')];
+
+    if(cardClassSelected.length >0){
+        submenu.style.display="flex";
+        span.textContent= cardClassSelected.length  +" selected";
+        
+        const cancelSelect= document.getElementById("cancelSelected");
+        cancelSelect.addEventListener("click",(ev)=>{
+            ev.preventDefault();
+            const cardClassSelected = document.querySelectorAll('.card-selected');
+            cardClassSelected.forEach(element=>{
+                element.classList.remove("card-selected");
+            });
+            submenu.style.display="none";
+            span.textContent="";
+        });
+    }else{
+        submenu.style.display="none";
+        span.textContent="";
+    }
+
+    if(cardSelected=== null) {return;}
+
+    updateSubmenuVisibility()
+    
+}
+
+function deleteSelected(){
+    const cardClassSelected = document.querySelectorAll('.card-selected');
+    for (const element of cardClassSelected){
+        element.classList.remove("card-selected");
+        deleteCard(element);
+    }
+
+    const submenu = document.getElementById("submenu");
+    const span = document.getElementById("noteSelected");
+
+    submenu.style.display = "none";
+    span.textContent = "";
+}
+
+function updateSubmenuVisibility() {
+    const cardClassSelected = document.querySelectorAll('.card-selected');
+    const submenu = document.getElementById("submenu");
+    const span = document.getElementById("noteSelected");
+
+    if (cardClassSelected.length > 0) {
+        submenu.style.display = "flex";
+        span.textContent = cardClassSelected.length + " selected";
+    } else {
+        submenu.style.display = "none";
+        span.textContent = "";
+    }
 }

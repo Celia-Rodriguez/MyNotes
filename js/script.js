@@ -164,9 +164,11 @@ function createCard(valTitle, valorInput, valorId){
 function deleteCard(element){
     const cardNote = element.closest('.card-note');
     const idNote= cardNote.id;
+    if (cardNote.classList.contains("card-selected")) {
+        cardNote.classList.remove("card-selected");
+        updateSubmenuVisibility()
+    }
     cardNote.remove();
-    //eliminar del localStorage
-    //console.log(idNote);
     
     let note_saved= JSON.parse(localStorage.getItem('todolist'));
     let trashNotes =localStorage.getItem('trashNotes');
@@ -198,10 +200,11 @@ function deleteCard(element){
 function archiveCard(element){
     const cardNote = element.closest('.card-note');
     const idNote= cardNote.id;
+    if (cardNote.classList.contains("card-selected")) {
+        cardNote.classList.remove("card-selected");
+    }
     cardNote.remove();
-    //eliminar del localStorage
-    //console.log(idNote);
-    
+  
     let note_saved= JSON.parse(localStorage.getItem('todolist'));
     let archiveNotes =localStorage.getItem('archiveNotes');
     toArchive= new Array();
@@ -235,10 +238,8 @@ function generarIdUnico() {
 function selectCard(id){
     
     const cardSelected = document.getElementById(id);
-    if(cardSelected=== null) {return;}
     const submenu= document.getElementById("submenu");
     const span= document.getElementById("noteSelected");
-    
 
     if(cardSelected.classList.contains("card-selected")){
         cardSelected.classList.remove("card-selected");
@@ -250,7 +251,7 @@ function selectCard(id){
 
     if(cardClassSelected.length >0){
         submenu.style.display="flex";
-        span.textContent= cardClassSelected.length  +" " + "selected";
+        span.textContent= cardClassSelected.length  +" selected";
         
         const cancelSelect= document.getElementById("cancelSelected");
         cancelSelect.addEventListener("click",(ev)=>{
@@ -266,15 +267,53 @@ function selectCard(id){
         submenu.style.display="none";
         span.textContent="";
     }
+
+    if(cardSelected === null) {return;}
+
+    updateSubmenuVisibility()
     
 }
 
 function deleteSelected(){
     const cardClassSelected = document.querySelectorAll('.card-selected');
-console.log(cardClassSelected)
     for (const element of cardClassSelected){
-        console.log(element);
         element.classList.remove("card-selected");
         deleteCard(element);
+    }
+
+    const submenu = document.getElementById("submenu");
+    const span = document.getElementById("noteSelected");
+
+    submenu.style.display = "none";
+    span.textContent = "";
+}
+
+function archiveSelected() {
+    const cardClassSelected = document.querySelectorAll('.card-selected');
+
+    for (const element of cardClassSelected) {
+        element.classList.remove("card-selected");
+        archiveCard(element);
+    }
+
+    const submenu = document.getElementById("submenu");
+    const span = document.getElementById("noteSelected");
+
+    submenu.style.display = "none";
+    span.textContent = "";
+}
+
+
+function updateSubmenuVisibility() {
+    const cardClassSelected = document.querySelectorAll('.card-selected');
+    const submenu = document.getElementById("submenu");
+    const span = document.getElementById("noteSelected");
+
+    if (cardClassSelected.length > 0) {
+        submenu.style.display = "flex";
+        span.textContent = cardClassSelected.length + " selected";
+    } else {
+        submenu.style.display = "none";
+        span.textContent = "";
     }
 }
