@@ -102,6 +102,7 @@ function restoreCard(element){
             
         }
     });
+
 }
 
 //funcion para editar las cards
